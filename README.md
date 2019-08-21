@@ -1,6 +1,6 @@
-# MBMERGE
+# mbmerge
 
-Facilitates joining mbtiles files in jpg or png formats.
+Facilitates joining mbtiles files in jpg, webp or png formats.
 
 ## Prerequisites
 
@@ -13,11 +13,11 @@ python -m pip install Pillow
 ## Use
 
 ```
-usage: mb-join.py [-h] [-f [format]] [-a [merge action]]
-                  [-p [palette colours]]
+usage: mbmerge.py [-h] [-n name] [-p [palette colours]]
                   output path input paths [input paths ...]
 
-Merges a series of raster MBTiles files. Only works for PNG at the moment.
+Merges a series of raster MBTiles files. jpg files will be blended, png and
+webp files will be merged using alpha compositing.
 
 positional arguments:
   output path           Output MBTiles file path
@@ -26,11 +26,14 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  -f [format]           Output format (PNG or JPEG)
-  -a [merge action]     Merge action. blend () or alphacomposite (png only,
-                        replaces nodata from image 2 with nodata of image 1)
-  -p [palette colours]  Number of output colours in the palette (png only)
-  ```
+  -n name               Name value for output mbtiles metadata
+  -p palette  Number of output colours in the palette (png only, defaults to 16)
+```
+
+Sample usage:
+```
+python mbmerge.py -n "Wimmera CMA Flood Risk" -p 8 "master.mbtiles" "NatiTown13_FloodRisk.mbtiles" "Hors19_FloodRisk.mbtiles"  "Con15_FloodRisk.mbtiles" "Dunm17_FloodRisk.mbtiles" "HGap17_FloodRisk.mbtiles"
+```
 
 ## Built With
 
