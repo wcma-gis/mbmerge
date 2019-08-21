@@ -1,4 +1,4 @@
-# Wimmera CMA MBJOIN
+# MBMERGE
 
 Facilitates joining mbtiles files in jpg or png formats.
 
