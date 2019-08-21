@@ -7,7 +7,7 @@ import os
 
 #Setup arg parser
 parser = argparse.ArgumentParser(description='Merges a series of raster MBTiles files.',
-    epilog="Link to github#############")
+    epilog="https://github.com/wcma-gis/wcma-mbjoin")
 parser.add_argument('-f', dest='format', metavar='format', const='jpg', nargs='?', help='Output format (PNG or JPEG)', choices=['png','jpg'])
 parser.add_argument('-a', dest='action', metavar='merge action',const='blend', nargs='?', help='Merge action. blend () or alphacomposite (png only, replaces nodata from image 2 with nodata of image 1)', choices=['blend','alphacomposite'])
 parser.add_argument('-p', dest='palette', metavar='palette colours',const=16, type=int, nargs='?',help='Number of output colours in the palette (png Only)')
