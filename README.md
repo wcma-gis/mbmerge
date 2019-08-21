@@ -12,7 +12,8 @@ python -m pip install Pillow
 
 ## Use
 
-'''usage: mb-join.py [-h] [-f [format]] [-a [merge action]]
+```
+usage: mb-join.py [-h] [-f [format]] [-a [merge action]]
                   [-p [palette colours]]
                   output path input paths [input paths ...]
 
@@ -28,7 +29,8 @@ optional arguments:
   -f [format]           Output format (PNG or JPEG)
   -a [merge action]     Merge action. blend () or alphacomposite (png only,
                         replaces nodata from image 2 with nodata of image 1)
-  -p [palette colours]  Number of output colours in the palette (png Only)'''
+  -p [palette colours]  Number of output colours in the palette (png only)
+  ```
 
 ## Built With
 

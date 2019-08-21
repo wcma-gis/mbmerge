@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(description='Merges a series of raster MBTiles 
     epilog="https://github.com/wcma-gis/wcma-mbjoin")
 parser.add_argument('-f', dest='format', metavar='format', const='jpg', nargs='?', help='Output format (PNG or JPEG)', choices=['png','jpg'])
 parser.add_argument('-a', dest='action', metavar='merge action',const='blend', nargs='?', help='Merge action. blend () or alphacomposite (png only, replaces nodata from image 2 with nodata of image 1)', choices=['blend','alphacomposite'])
-parser.add_argument('-p', dest='palette', metavar='palette colours',const=16, type=int, nargs='?',help='Number of output colours in the palette (png Only)')
+parser.add_argument('-p', dest='palette', metavar='palette colours',const=16, type=int, nargs='?',help='Number of output colours in the palette (png only)')
 parser.add_argument('out_file', metavar='output path',help='Output MBTiles file path')
 parser.add_argument('in_files', nargs='+', metavar='input paths',help='List of MBTiles files to merge, in increasing order of importance (latter files will override earlier ones)')
 
