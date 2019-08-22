@@ -5,6 +5,10 @@ from PIL import Image
 from io import BytesIO
 import os
 
+#Example usage
+#python mbmerge.py -n "Wimmera CMA Flood Risk" -p 8 "wcma_floodrisk.mbtiles" "NatiTown13_FloodRisk.mbtiles" "WRYC10_FloodRisk.mbtiles" "UpperWimm14_FloodRisk.mbtiles" "MtWill14_FloodRisk.mbtiles"  "Wimm16_FloodRisk.mbtiles" "WarrBrim16_FloodRisk.mbtiles" "Con15_FloodRisk.mbtiles" "Dunm17_FloodRisk.mbtiles" "HGap17_FloodRisk.mbtiles" "Hors19_FloodRisk.mbtiles"
+
+
 # Setup arg parser
 parser = argparse.ArgumentParser(
     description='Merges a series of raster MBTiles files. jpg files will be blended, png and webp files will be merged using alpha compositing.',
