@@ -8,7 +8,6 @@ import os
 #Example usage
 #python mbmerge.py -n "Wimmera CMA Flood Risk" -p 8 "wcma_floodrisk.mbtiles" "NatiTown13_FloodRisk.mbtiles" "WRYC10_FloodRisk.mbtiles" "UpperWimm14_FloodRisk.mbtiles" "MtWill14_FloodRisk.mbtiles"  "Wimm16_FloodRisk.mbtiles" "WarrBrim16_FloodRisk.mbtiles" "Con15_FloodRisk.mbtiles" "Dunm17_FloodRisk.mbtiles" "HGap17_FloodRisk.mbtiles" "Hors19_FloodRisk.mbtiles"
 
-
 # Setup arg parser
 parser = argparse.ArgumentParser(
     description='Merges a series of raster MBTiles files. jpg files will be blended, png and webp files will be merged using alpha compositing.',
@@ -70,8 +69,6 @@ meta['bounds'] = get_meta('main', 'bounds').split(',')
 meta['minzoom'] = get_meta('main', 'minzoom')
 meta['maxzoom'] = get_meta('main', 'maxzoom')
 # Setup metadata checker
-
-
 def check_meta(file, param, value, error=False):
     # Check value
     if meta[param] != value:
@@ -85,17 +82,16 @@ def check_meta(file, param, value, error=False):
         return False
     # Return result
     return True
-
-
 # Loop through additional datasets
 for i, dataset in enumerate(datasets[-dataset_count:]):
     # Setup alias
     alias = 'ds' + str(i)
     # Attach dataset mbtiles
-    sql = "ATTACH DATABASE ? AS ?;"
-    params = (dataset, alias,)
-    m.execute(sql, params)
+    sql = "ATTACH DATABASE \"{}\" AS {};"
+    print(sql.format(dataset, alias))
+    m.execute(sql.format(dataset, alias))
     # Check format
+    print(alias, dataset)
     fmt = get_meta(alias, 'format')
     if not check_meta(dataset, 'format', fmt, True):
         exit()
@@ -132,7 +128,7 @@ for child in children:
     sql = "INSERT INTO main.images_transparency (tile_id, transparency) SELECT tile_id, transparency FROM {alias}.images_transparency WHERE tile_id NOT IN (SELECT tile_id FROM main.images_transparency);"
     c.execute(sql.format(alias=child['alias']))
     # Update map table
-    sql = "INSERT INTO main.map (zoom_level, tile_column, tile_row, tile_id) SELECT zoom_level, tile_column, tile_row, tile_id FROM {alias}.map WHERE tile_id NOT IN (SELECT tile_id FROM main.map);"
+    sql = "INSERT INTO main.map (zoom_level, tile_column, tile_row, tile_id) SELECT zoom_level, tile_column, tile_row, tile_id FROM {alias}.map WHERE (tile_id,zoom_level,tile_column,tile_row) NOT IN (SELECT tile_id,zoom_level,tile_column,tile_row FROM main.map);"
     c.execute(sql.format(alias=child['alias']))
     # Get overlapping tiles
     sql = "SELECT i1.tile_id, i1.tile_data as png1, i2.tile_data as png2 FROM main.images i1 INNER JOIN {alias}.images i2 ON i1.tile_id = i2.tile_id;"
